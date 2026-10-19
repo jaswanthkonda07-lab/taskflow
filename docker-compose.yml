@@ -1,0 +1,14 @@
+services:
+  mongo:
+    image: mongo:7
+    volumes: [mongo-data:/data/db]
+  app:
+    build: .
+    ports: ["4000:4000"]
+    environment:
+      PORT: 4000
+      MONGODB_URI: mongodb://mongo:27017/taskflow
+      JWT_SECRET: change-me-in-production
+    depends_on: [mongo]
+volumes:
+  mongo-data:
